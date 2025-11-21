@@ -31,16 +31,19 @@ export default function Receipt({ orderData, onClose }: ReceiptProps) {
     try {
       const canvas = await html2canvas(receiptRef.current, {
         scale: 2, // 고해상도
-        backgroundColor: null, // 투명 배경 지원 (필요시)
+        backgroundColor: "#ffffff", // 흰색 배경
+        useCORS: true, // CORS 이미지 허용
+        allowTaint: true, // 외부 이미지 허용
+        logging: false, // 콘솔 로그 비활성화
       });
 
       const link = document.createElement("a");
       link.href = canvas.toDataURL("image/png");
-      link.download = `receipt_${new Date().getTime()}.png`;
+      link.download = `nuucard_receipt_${new Date().getTime()}.png`;
       link.click();
     } catch (err) {
       console.error("Receipt download failed:", err);
-      alert("영수증 저장에 실패했습니다.");
+      alert("영수증 저장에 실패했습니다. 스크린샷으로 저장해주세요.");
     }
   };
 
