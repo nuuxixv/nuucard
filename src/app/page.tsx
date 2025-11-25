@@ -9,35 +9,27 @@ import CartModal from "@/components/CartModal";
 import Header from "@/components/Header";
 
 export default function Home() {
-  const [showSplash, setShowSplash] = useState(true);
-
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Header />
       <CartButton />
       <CartModal />
 
-      {showSplash && (
-        <SplashScreen onComplete={() => setShowSplash(false)} />
-      )}
-
       {/* Main Content */}
       <div className="relative w-full min-h-screen flex flex-col">
-        {!showSplash && (
-          <div className="animate-fade-in w-full">
-            {/* Hero Section */}
-            <div className="relative w-full h-screen">
-              <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: "url('/images/postcards/high-res/card-01.jpg')" }}
-              >
-                <div className="absolute inset-0 bg-black/30" />
-              </div>
+        <div className="animate-fade-in w-full">
+          {/* Hero Section */}
+          <div className="relative w-full h-screen">
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: "url('/images/postcards/original/card-01.jpg')" }}
+            >
+              <div className="absolute inset-0 bg-black/30" />
             </div>
-
-            <Gallery />
           </div>
-        )}
+
+          <Gallery />
+        </div>
       </div>
     </main>
   );
