@@ -23,23 +23,12 @@ export default function CartButton() {
   return (
     <button
       onClick={toggleCart}
-      className="fixed top-6 right-6 z-30 bg-white p-3 rounded-full shadow-lg hover:shadow-xl transition-shadow group"
+      className="fixed top-6 right-6 z-50 text-foreground text-xs font-editorial uppercase tracking-widest group mix-blend-difference"
     >
-      <ShoppingBag size={24} className="text-[#1A1A1A] group-hover:text-accent transition-colors" />
-      
-      <AnimatePresence>
-        {totalItems > 0 && (
-          <motion.span
-            key={totalItems}
-            initial={{ scale: 0 }}
-            animate={{ scale: isBumping ? 1.3 : 1 }}
-            exit={{ scale: 0 }}
-            className="absolute -top-1 -right-1 bg-accent text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full shadow-sm"
-          >
-            {totalItems}
-          </motion.span>
-        )}
-      </AnimatePresence>
+      <span className="relative">
+        BAG ({totalItems})
+        <span className="absolute -bottom-1 left-0 w-full h-[1px] bg-foreground scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+      </span>
     </button>
   );
 }
