@@ -79,7 +79,7 @@ export default function Home() {
               <div key={card.id} className="aspect-[3/4] relative overflow-hidden rounded-lg shadow-md group cursor-pointer">
                 <img
                   src={card.src}
-                  alt={card.alt}
+                  alt={card.title}
                   className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">

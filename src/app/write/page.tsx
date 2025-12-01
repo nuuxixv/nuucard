@@ -95,7 +95,7 @@ export default function WritePage() {
                                 >
                                     <motion.img
                                         src={card.src}
-                                        alt={card.alt}
+                                        alt={card.title}
                                         className="w-full h-full object-cover"
                                     />
                                     {/* Minimal Overlay for List View */}
@@ -132,7 +132,7 @@ export default function WritePage() {
                                                 <div className="w-full md:w-3/5 bg-black flex items-center justify-center relative overflow-hidden">
                                                     <motion.img
                                                         src={card.src}
-                                                        alt={card.alt}
+                                                        alt={card.title}
                                                         className="w-full h-full object-contain max-h-[50vh] md:max-h-full"
                                                     />
                                                 </div>
