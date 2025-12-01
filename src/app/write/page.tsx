@@ -86,14 +86,6 @@ export default function WritePage() {
             return;
         }
 
-        console.log('Kakao Share Args:', {
-            templateId: 126455,
-            templateArgs: {
-                POSTCARD_URL: generatedLink,
-                SENDER: senderName || '누군가',
-            }
-        });
-
         window.Kakao.Share.sendCustom({
             templateId: 126455,
             templateArgs: {

@@ -31,6 +31,8 @@
 - **Layout**: react-masonry-css
 - **Database**: Supabase (PostgreSQL)
 - **Security**: crypto-js (AES-256 Client-side Encryption), Cloudflare Turnstile
+- **Analytics**: Google Analytics 4 (GA4), Microsoft Clarity
+- **Social**: KakaoTalk Share API
 - **Tools**: exifr (Metadata Extraction)
 
 ## 🚀 시작하기
@@ -43,6 +45,9 @@ NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 NEXT_PUBLIC_TURNSTILE_SITE_KEY=your_turnstile_site_key
 TURNSTILE_SECRET_KEY=your_turnstile_secret_key
+NEXT_PUBLIC_KAKAO_JS_KEY=your_kakao_js_key
+NEXT_PUBLIC_GA_ID=your_ga4_measurement_id
+NEXT_PUBLIC_CLARITY_ID=your_clarity_project_id
 ```
 
 ### 2. 설치 및 실행
@@ -54,6 +59,7 @@ npm run dev
 
 ### 3. 사진 데이터 관리 (자동화)
 새로운 사진을 `public/images/gallery/original`에 넣고 아래 스크립트를 실행하면, EXIF 정보를 추출하여 `src/data/photos.json`을 자동으로 업데이트합니다.
+**50장 이상의 대량의 사진**도 스크립트 한 번으로 손쉽게 관리할 수 있습니다.
 
 ```bash
 node scripts/update-photos.js
@@ -91,7 +97,7 @@ nuucard/
 - [x] 모바일 반응형 레이아웃 (2열 그리드)
 - [x] EXIF 데이터 자동 추출
 - [ ] **세부 UX 개선** (마이크로 인터랙션, 로딩 상태 등)
-- [ ] **카카오 알림톡 연동** (공유하기 기능 강화)
+- [x] **카카오 알림톡 연동** (공유하기 기능 강화)
 - [ ] **GA 및 Clarity 연동** (사용자 행동 분석)
 - [ ] **기타 검수 고도화** (크로스 브라우징, 성능 최적화)
 
