@@ -27,6 +27,50 @@ const photos = photosData as Photo[];
 const allTags = Array.from(new Set(photos.flatMap(photo => photo.tags)));
 const categories = ['All', ...allTags];
 
+function GalleryItem({ photo, onClick }: { photo: Photo; onClick: () => void }) {
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    return (
+        <motion.div
+            layout
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.3 }}
+            className="mb-4 md:mb-8"
+        >
+            <motion.div
+                layoutId={`photo-${photo.id}`}
+                onClick={onClick}
+                className="relative rounded-lg overflow-hidden cursor-pointer group bg-gray-100"
+                style={{ aspectRatio: photo.width / photo.height }}
+            >
+                {/* Loading Placeholder */}
+                {!isLoaded && (
+                    <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+                )}
+
+                <motion.img
+                    src={photo.src}
+                    alt={photo.title}
+                    className="w-full h-full object-cover block"
+                    loading="lazy"
+                    onLoad={() => setIsLoaded(true)}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: isLoaded ? 1 : 0 }}
+                    transition={{ duration: 0.5 }}
+                />
+
+                {/* Overlays */}
+                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-black/60 to-transparent">
+                    <p className="font-medium text-sm">{photo.title}</p>
+                </div>
+            </motion.div>
+        </motion.div>
+    );
+}
+
 export default function GalleryPage() {
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [viewingPhotoId, setViewingPhotoId] = useState<string | null>(null);
@@ -57,8 +101,8 @@ export default function GalleryPage() {
                             key={category}
                             onClick={() => setSelectedCategory(category)}
                             className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${selectedCategory === category
-                                    ? 'bg-[#3E3A36] text-white shadow-md'
-                                    : 'bg-white border border-[#3E3A36]/10 text-gray-500 hover:bg-gray-50'
+                                ? 'bg-[#3E3A36] text-white shadow-md'
+                                : 'bg-white border border-[#3E3A36]/10 text-gray-500 hover:bg-gray-50'
                                 }`}
                         >
                             {category}
@@ -77,32 +121,7 @@ export default function GalleryPage() {
                     >
                         <AnimatePresence>
                             {filteredPhotos.map((photo) => (
-                                <motion.div
-                                    layout
-                                    key={photo.id}
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.9 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="mb-4 md:mb-8"
-                                >
-                                    <motion.div
-                                        layoutId={`photo-${photo.id}`}
-                                        onClick={() => setViewingPhotoId(photo.id)}
-                                        className="relative rounded-lg overflow-hidden cursor-pointer group bg-gray-100"
-                                    >
-                                        <motion.img
-                                            src={photo.src}
-                                            alt={photo.title}
-                                            className="w-full h-auto block"
-                                            loading="lazy"
-                                        />
-                                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                        <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-black/60 to-transparent">
-                                            <p className="font-medium text-sm">{photo.title}</p>
-                                        </div>
-                                    </motion.div>
-                                </motion.div>
+                                <GalleryItem key={photo.id} photo={photo} onClick={() => setViewingPhotoId(photo.id)} />
                             ))}
                         </AnimatePresence>
                     </Masonry>
@@ -193,16 +212,24 @@ export default function GalleryPage() {
                                         >
                                             <Link
                                                 href="/write"
-                                                className="flex-1 py-3 bg-[#C43E38] text-white text-center rounded-full font-medium hover:bg-[#A0302B] transition-colors shadow-lg"
+                                                className="flex-1"
                                             >
-                                                이 엽서 쓰기
+                                                <motion.button
+                                                    whileHover={{ scale: 1.02 }}
+                                                    whileTap={{ scale: 0.98 }}
+                                                    className="w-full py-3 bg-[#C43E38] text-white text-center rounded-full font-medium hover:bg-[#A0302B] transition-colors shadow-lg"
+                                                >
+                                                    이 엽서 쓰기
+                                                </motion.button>
                                             </Link>
-                                            <button
+                                            <motion.button
+                                                whileHover={{ scale: 1.02, backgroundColor: 'rgba(62, 58, 54, 0.05)' }}
+                                                whileTap={{ scale: 0.98 }}
                                                 onClick={() => setViewingPhotoId(null)}
-                                                className="px-6 py-3 border border-[#3E3A36]/20 rounded-full hover:bg-[#3E3A36]/5 transition-colors"
+                                                className="px-6 py-3 border border-[#3E3A36]/20 rounded-full transition-colors"
                                             >
                                                 닫기
-                                            </button>
+                                            </motion.button>
                                         </motion.div>
                                     </div>
                                 </motion.div>

@@ -7,8 +7,15 @@ import Link from 'next/link';
 import { Turnstile } from '@marsidev/react-turnstile';
 import { POSTCARDS } from '@/lib/constants';
 import { motion, AnimatePresence } from 'framer-motion';
+import Toast from '@/components/ui/Toast';
 
 const SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+
+declare global {
+    interface Window {
+        Kakao: any;
+    }
+}
 
 export default function WritePage() {
     const [step, setStep] = useState<'select' | 'write' | 'done'>('select');
@@ -20,7 +27,17 @@ export default function WritePage() {
     const [loading, setLoading] = useState(false);
     const [generatedLink, setGeneratedLink] = useState('');
     const [token, setToken] = useState<string | null>(null);
-    const [showCopyToast, setShowCopyToast] = useState(false);
+
+    // Toast State
+    const [toast, setToast] = useState<{ show: boolean; message: string; type: 'success' | 'error' }>({
+        show: false,
+        message: '',
+        type: 'success'
+    });
+
+    const showToast = (message: string, type: 'success' | 'error' = 'success') => {
+        setToast({ show: true, message, type });
+    };
 
     const handleSeal = async () => {
         if (!content.trim() || !senderName.trim() || !token || !selectedCardId) return;
@@ -52,7 +69,7 @@ export default function WritePage() {
             setStep('done');
         } catch (error) {
             console.error('Error sealing letter:', error);
-            alert('편지를 봉인하는 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+            showToast('편지를 봉인하는 중 오류가 발생했습니다.', 'error');
         } finally {
             setLoading(false);
         }
@@ -60,12 +77,22 @@ export default function WritePage() {
 
     const handleCopy = () => {
         navigator.clipboard.writeText(generatedLink);
-        setShowCopyToast(true);
-        setTimeout(() => setShowCopyToast(false), 3000);
+        showToast('링크가 복사되었습니다!');
     };
 
     const handleKakaoShare = () => {
-        alert('카카오톡 공유 기능은 아직 준비 중입니다.\n링크를 복사해서 전달해주세요!');
+        if (!window.Kakao || !window.Kakao.isInitialized()) {
+            showToast('카카오톡 공유 기능을 불러오는 중입니다. 잠시 후 다시 시도해주세요.', 'error');
+            return;
+        }
+
+        window.Kakao.Share.sendCustom({
+            templateId: 126455,
+            templateArgs: {
+                POSTCARD_URL: generatedLink,
+                SENDER: senderName || '누군가',
+            },
+        });
     };
 
     return (
@@ -178,7 +205,9 @@ export default function WritePage() {
                                                         transition={{ delay: 0.5 }}
                                                         className="flex gap-3 mt-8"
                                                     >
-                                                        <button
+                                                        <motion.button
+                                                            whileHover={{ scale: 1.02 }}
+                                                            whileTap={{ scale: 0.98 }}
                                                             onClick={() => {
                                                                 setSelectedCardId(card.id);
                                                                 setViewingCardId(null);
@@ -187,13 +216,15 @@ export default function WritePage() {
                                                             className="flex-1 py-4 bg-[#C43E38] text-white rounded-full font-medium hover:bg-[#A0302B] transition-colors shadow-lg"
                                                         >
                                                             이 엽서 선택하기
-                                                        </button>
-                                                        <button
+                                                        </motion.button>
+                                                        <motion.button
+                                                            whileHover={{ scale: 1.02, backgroundColor: 'rgba(62, 58, 54, 0.05)' }}
+                                                            whileTap={{ scale: 0.98 }}
                                                             onClick={() => setViewingCardId(null)}
-                                                            className="px-6 py-4 border border-[#3E3A36]/20 rounded-full hover:bg-[#3E3A36]/5 transition-colors"
+                                                            className="px-6 py-4 border border-[#3E3A36]/20 rounded-full transition-colors"
                                                         >
                                                             닫기
-                                                        </button>
+                                                        </motion.button>
                                                     </motion.div>
                                                 </div>
                                             </motion.div>
@@ -266,19 +297,24 @@ export default function WritePage() {
                             </div>
 
                             <div className="flex gap-4">
-                                <button
+                                <motion.button
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
                                     onClick={() => setStep('select')}
                                     className="flex-1 py-4 bg-white/80 backdrop-blur border border-[#3E3A36]/20 text-[#3E3A36] rounded-xl font-medium hover:bg-white transition-colors"
                                 >
                                     이전
-                                </button>
-                                <button
+                                </motion.button>
+                                <motion.button
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
                                     onClick={handleSeal}
                                     disabled={loading || !content.trim() || !senderName.trim() || !token}
-                                    className="flex-[2] py-4 bg-[#C43E38] text-white rounded-xl font-medium hover:bg-[#A0302B] disabled:opacity-50 shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
+                                    className="flex-[2] py-4 bg-[#C43E38] text-white rounded-xl font-medium hover:bg-[#A0302B] disabled:opacity-50 shadow-lg transition-all flex items-center justify-center gap-2"
                                 >
+                                    {loading && <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />}
                                     {loading ? '봉인 중...' : '편지 봉인하기'}
-                                </button>
+                                </motion.button>
                             </div>
                         </div>
                     </motion.div>
@@ -300,19 +336,23 @@ export default function WritePage() {
                             </div>
 
                             <div className="space-y-4">
-                                <button
+                                <motion.button
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
                                     onClick={handleKakaoShare}
                                     className="w-full py-4 bg-[#FEE500] text-[#3E3A36] rounded-xl font-medium hover:bg-[#FDD835] transition-colors flex items-center justify-center gap-3 shadow-sm hover:shadow-md"
                                 >
                                     <span className="font-bold text-xl">TALK</span> 카카오톡으로 보내기
-                                </button>
+                                </motion.button>
 
-                                <button
+                                <motion.button
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
                                     onClick={handleCopy}
                                     className="w-full py-4 bg-white border border-[#3E3A36]/20 text-[#3E3A36] rounded-xl font-medium hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
                                 >
                                     🔗 링크 복사하기
-                                </button>
+                                </motion.button>
                             </div>
 
                             <Link href="/" className="inline-block mt-12 text-gray-400 hover:text-[#3E3A36] underline decoration-1 underline-offset-4 transition-colors">
@@ -323,16 +363,12 @@ export default function WritePage() {
                 )}
             </AnimatePresence>
 
-            {/* Copy Feedback Bottom Sheet */}
-            <div
-                className={`fixed bottom-0 left-0 right-0 bg-white p-8 rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] transition-transform duration-300 ease-out transform z-50 ${showCopyToast ? 'translate-y-0' : 'translate-y-full'}`}
-            >
-                <div className="flex items-center gap-4 mb-2">
-                    <div className="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-lg">✓</div>
-                    <p className="font-medium text-xl text-[#3E3A36]">링크가 복사되었습니다!</p>
-                </div>
-                <p className="text-gray-500 pl-12">원하는 곳에 붙여넣기(Ctrl+V)하여 공유하세요.</p>
-            </div>
+            <Toast
+                isVisible={toast.show}
+                message={toast.message}
+                type={toast.type}
+                onClose={() => setToast(prev => ({ ...prev, show: false }))}
+            />
         </div>
     );
 }

@@ -1,9 +1,13 @@
+
 import type { Metadata } from "next";
-import Script from "next/script";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import KakaoScript from '@/components/KakaoScript';
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Postcard Shop",
+  title: "nuucard",
   description: "Share your moments with our premium postcards.",
 };
 
@@ -14,10 +18,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <head>
-        <Script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" strategy="lazyOnload" />
-      </head>
-      <body className="antialiased">
+      <body className={inter.className}>
+        <KakaoScript />
         {children}
       </body>
     </html>

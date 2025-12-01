@@ -36,9 +36,15 @@ export default function Home() {
             </p>
             <Link
               href="/write"
-              className="inline-block px-10 py-4 bg-[#C43E38] text-white text-lg rounded-full hover:bg-[#A0302B] transition-all shadow-[0_0_20px_rgba(196,62,56,0.4)] hover:shadow-[0_0_30px_rgba(196,62,56,0.6)] hover:scale-105"
+              className="inline-block"
             >
-              엽서 쓰기
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-10 py-4 bg-[#C43E38] text-white text-lg rounded-full hover:bg-[#A0302B] transition-colors shadow-[0_0_20px_rgba(196,62,56,0.4)] hover:shadow-[0_0_30px_rgba(196,62,56,0.6)]"
+              >
+                엽서 쓰기
+              </motion.button>
             </Link>
           </motion.div>
         </div>
