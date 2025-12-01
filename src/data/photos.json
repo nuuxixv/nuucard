@@ -1,0 +1,82 @@
+[
+  {
+    "id": "card-01",
+    "src": "/images/gallery/webp/card-01.webp",
+    "title": "따뜻한 겨울",
+    "description": "차가운 공기 속에서도 온기가 느껴지는 순간이 있습니다. 당신의 겨울이 이처럼 따뜻하기를 바랍니다.",
+    "location": "Seoul, Korea",
+    "tags": [
+      "Winter",
+      "Warmth",
+      "Seoul"
+    ],
+    "exif": "ILCE-7M4 · 52mm · f/4 · 1/50s · ISO 4000",
+    "width": 1000,
+    "height": 1500,
+    "dateTaken": "2025-09-19T11:28:28.000Z"
+  },
+  {
+    "id": "card-02",
+    "src": "/images/gallery/webp/card-02.webp",
+    "title": "고요한 밤",
+    "description": "모두가 잠든 시간, 홀로 깨어있는 당신에게 위로가 되기를. 밤하늘의 별처럼 빛나는 마음을 담았습니다.",
+    "location": "Gangwon, Korea",
+    "tags": [
+      "Night",
+      "Stars",
+      "Gangwon"
+    ],
+    "exif": "ILCE-7M4 · 69mm · f/4 · 1/125s · ISO 2500",
+    "width": 1000,
+    "height": 1500,
+    "dateTaken": "2025-09-19T11:37:09.000Z"
+  },
+  {
+    "id": "card-03",
+    "src": "/images/gallery/webp/card-03.webp",
+    "title": "눈 내리는 날",
+    "description": "소복이 쌓이는 눈처럼, 당신을 향한 그리움도 조용히 쌓여갑니다. 하얀 세상 속에서 전하는 안부입니다.",
+    "location": "Sapporo, Japan",
+    "tags": [
+      "Snow",
+      "Winter",
+      "Sapporo"
+    ],
+    "exif": "ILCE-7M4 · 61mm · f/4 · 1/40s · ISO 2000",
+    "width": 1000,
+    "height": 1500,
+    "dateTaken": "2025-09-19T11:50:06.000Z"
+  },
+  {
+    "id": "card-04",
+    "src": "/images/gallery/webp/card-04.webp",
+    "title": "크리스마스 거리",
+    "description": "반짝이는 불빛들 사이로 설렘이 가득합니다. 축제의 거리에서 당신과 함께 걷고 싶은 마음을 보냅니다.",
+    "location": "Myeongdong, Seoul",
+    "tags": [
+      "Christmas",
+      "City",
+      "Seoul"
+    ],
+    "exif": "ILCE-7M4 · 70mm · f/8 · 1/2500s · ISO 250",
+    "width": 1000,
+    "height": 1500,
+    "dateTaken": "2025-11-16T04:58:58.000Z"
+  },
+  {
+    "id": "card-05",
+    "src": "/images/gallery/webp/card-05.webp",
+    "title": "오두막의 온기",
+    "description": "작은 불빛 하나로도 충분히 따뜻해질 수 있습니다. 당신의 곁을 지키는 작은 위로가 되고 싶습니다.",
+    "location": "Pyeongchang, Korea",
+    "tags": [
+      "Cabin",
+      "Cozy",
+      "Pyeongchang"
+    ],
+    "exif": "ILCE-7M4 · 70mm · f/6.3 · 1/13s · ISO 125",
+    "width": 1000,
+    "height": 1500,
+    "dateTaken": "2025-11-16T08:27:14.000Z"
+  }
+]
