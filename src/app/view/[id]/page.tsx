@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import { decrypt } from '@/lib/crypto';
 import { supabase } from '@/lib/supabaseClient';
 import Link from 'next/link';
-import { POSTCARDS } from '@/lib/constants';
+import { POSTCARDS, SHOP_URL } from '@/lib/constants';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ViewPage() {
@@ -166,9 +166,20 @@ export default function ViewPage() {
                             </div>
                         </div>
 
-                        <div className="mt-8 space-x-4 relative z-10">
-                            <Link href="/write" className="text-[#C43E38] hover:underline font-medium bg-white/50 px-4 py-2 rounded-full">
-                                나도 답장 쓰기
+                        <div className="mt-10 flex flex-col md:flex-row gap-4 relative z-10 items-center">
+                            <a
+                                href={SHOP_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-8 py-3 bg-[#3E3A36] text-white rounded-full font-medium hover:bg-black transition-all shadow-lg hover:scale-105 flex items-center gap-2"
+                            >
+                                <span>🛍️</span> 실물 엽서로 소장하기
+                            </a>
+                            <Link 
+                                href="/write" 
+                                className="px-6 py-3 bg-white/50 text-[#C43E38] border border-[#C43E38]/20 rounded-full font-medium hover:bg-white transition-all hover:scale-105"
+                            >
+                                ✍️ 나도 답장 쓰기
                             </Link>
                         </div>
                     </motion.div>

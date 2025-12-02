@@ -12,15 +12,14 @@ export default function Home() {
       {/* 1. Hero Section (감성 & 제안) */}
       <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-black">
         {/* Visual: Home Alone, Cinematic, Warm Tungsten Light */}
-        <div
-          className="absolute inset-0 z-0 opacity-70"
-          style={{
-            backgroundImage: `url(${POSTCARDS[0].src})`, // Fallback to first card image for now
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
-        <div className="absolute inset-0 z-10 bg-black/40" />
+        <div className="absolute inset-0 z-0">
+          <img
+            src={POSTCARDS[0].src}
+            alt="Background"
+            className="w-full h-full object-contain md:object-cover opacity-70"
+          />
+        </div>
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/60 via-black/20 to-black/60" />
 
         <div className="relative z-20 text-center px-4 text-[#F9F6F0]">
           <motion.div
@@ -95,15 +94,55 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Guest Photographer */}
-          <div className="bg-[#F9F6F0] p-8 rounded-2xl inline-block max-w-2xl w-full">
-            <p className="text-[#3E3A36] mb-4 font-medium">"당신의 사진으로 마음을 이어주세요."</p>
-            <button
-              onClick={() => alert('작가 등록 폼은 준비 중입니다!')}
-              className="text-[#C43E38] font-bold hover:underline flex items-center justify-center gap-1 mx-auto"
-            >
-              내 사진도 등록하기 <span className="text-lg">›</span>
-            </button>
+          {/* Lead Magnet (Wallpaper & Insta) */}
+          <div className="flex flex-col md:flex-row gap-6 justify-center mb-24">
+            <div className="flex-1 bg-[#F9F6F0] p-8 rounded-2xl text-left hover:shadow-lg transition-shadow">
+              <h3 className="text-xl font-medium mb-2">이 감성을 소장하세요</h3>
+              <p className="text-gray-500 mb-6 text-sm">
+                nuucard의 사진들을<br />
+                모바일 배경화면으로 만나보세요.
+              </p>
+              <button
+                onClick={() => alert('준비 중입니다!')}
+                className="text-gray-500 font-bold hover:underline flex items-center gap-1 hover:text-[#3E3A36] transition-colors"
+              >
+                배경화면 다운로드 <span className="text-lg">↓</span>
+              </button>
+            </div>
+            <div className="flex-1 bg-[#F9F6F0] p-8 rounded-2xl text-left hover:shadow-lg transition-shadow">
+              <h3 className="text-xl font-medium mb-2">더 많은 이야기</h3>
+              <p className="text-gray-500 mb-6 text-sm">
+                인스타그램에서<br />
+                새로운 소식을 확인하세요.
+              </p>
+              <a
+                href="https://instagram.com/nuucard"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 font-bold hover:underline flex items-center gap-1 hover:text-[#3E3A36] transition-colors"
+              >
+                @nuucard 방문하기 <span className="text-lg">↗</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Guest Photographer (Downgraded) */}
+          <div className="w-full text-left border-t border-gray-200 pt-12">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+              <div>
+                <h3 className="text-xl md:text-2xl font-medium mb-2 text-gray-400">Photographer</h3>
+                <p className="text-gray-400 font-light text-sm">
+                  당신의 시선이 누군가의 편지가 됩니다.<br />
+                  nuucard와 함께 수익을 창출해보세요.
+                </p>
+              </div>
+              <button
+                onClick={() => alert('작가 지원 폼은 준비 중입니다!')}
+                className="text-gray-400 underline hover:text-gray-600 transition-colors text-sm"
+              >
+                작가 지원하기 ›
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -131,7 +170,7 @@ export default function Home() {
 
         <div className="relative z-10">
           <h2 className="text-3xl md:text-5xl font-medium mb-4 text-[#3E3A36]">지금 떠오르는 그 사람에게.</h2>
-          <p className="text-xl text-[#C43E38] font-medium mb-12">미루면 늦어요!</p>
+          <p className="text-xl text-[#3E3A36] font-medium mb-12">지금 전하지 않으면,<br className="md:hidden" /> 이 마음은 내년에나 도착할지도 몰라요.</p>
 
           <Link
             href="/write"
@@ -144,7 +183,7 @@ export default function Home() {
 
       <footer className="py-12 text-center text-[#3E3A36]/40 text-xs bg-[#F9F6F0] border-t border-[#3E3A36]/5">
         <p className="mb-2">nuucard</p>
-        <p>© 2024 All rights reserved.</p>
+        <p>© 2025 All rights reserved.</p>
       </footer>
     </main>
   );
